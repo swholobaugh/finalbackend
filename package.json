@@ -1,0 +1,20 @@
+{
+  "name": "tradeapi",
+  "version": "1.0.0",
+  "description": "Backend for trading app",
+  "main": "./src/index.js",
+  "author": "Seth H. <seth.holobaugh@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "build": "babel src --out-dir dist --delete-dir-on-start --source-maps inline --copy-files",
+    "dev": "nodemon src --exec babel-node"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.5",
+    "nodemon": "^2.0.3"
+  }
+}
