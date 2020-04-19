@@ -1,20 +1,23 @@
-const knex = require('knex')({
-    client: provess.env.DB_TYPE,
+import knex from 'knex';
+
+const db = knex({
+    client: process.env.DB_TYPE,
     connection: {
         filename: process.env.DB_FILE
-    }
+    },
+    useNullAsDefault: true
 });
-
-const createTables = async() => {
-    !(await db.schema.hasTable('journal')) 
-        ? await db.schema.createTable('journal', table => {
-            table.increments().primary()
-            table.string('date')
-            table.string('symbol')
-            table.string('buyPrice')
-            table.string('sellPrice')
-            table.string('profit/loss')
-            table.string('closingDate')
+    
+const createTable = async () => {
+    !(await db.schema.hasTable('journal'))
+      ? await db.schema.createTable('journal', table => {
+          table.increments().primary()
+          table.string('date')
+          table.string('instruments')
         })
-        : null
-}
+      : null
+    }
+
+createTable();
+
+export default db;

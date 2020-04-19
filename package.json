@@ -18,6 +18,7 @@
     "nodemon": "^2.0.3"
   },
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "@oanda/v20": "^3.0.25-0",
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
