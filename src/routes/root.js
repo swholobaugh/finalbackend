@@ -1,11 +1,14 @@
 import { Router } from 'express';
-
+import auth from '../helpers/auth';
 
 const router = Router();
 
 router.get('/', (req, res) => {
-    res.json({msg: process.env.APP_NAME});
-});
+    res.json({msg: process.env.APP_NAME})
+})
 
+router.get('/login', auth, (req, res) => {
+    res.json(req.user)
+})
 
 export default router;

@@ -4,8 +4,8 @@ const serviceAccount = require('../../firebaseServiceAccount.json')
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://blog-17950.firebaseio.com',
-})
+  databaseURL: "https://tradeportal-abd0d.firebaseio.com"
+});
 
 const auth = async (req, res, next) => {
   try {
@@ -17,7 +17,6 @@ const auth = async (req, res, next) => {
       const user = {
         uuid: theUser.uid,
         name: theUser.displayName,
-        picture: theUser.photoURL || 'https://thelogin.rodolforoman.xyz/img/user.471a1ad3.png',
         email: theUser.email,
       }
       const dbUser = await users.addOrUpdate(user)

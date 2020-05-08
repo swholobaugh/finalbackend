@@ -10,3 +10,8 @@ oandaInstance.defaults.headers.common['Authorization'] = `Bearer ${process.env.O
 oandaInstance.defaults.headers.common['Accept-Datetime-Format'] = 'RFC3339';
 
 export default oandaInstance;
+
+export const currencyStrengthInstance = axios.create({
+    baseURL: 'https://api.currencyquake.com/pairs/'
+});
+

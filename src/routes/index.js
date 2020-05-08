@@ -1,11 +1,11 @@
-import { Router } from 'express';
+import { Router } from 'express'
 
-import root from './root';
+import root from './root'
+import api from './api'
 
+const router = Router()
 
-const router = Router();
+router.use(root)
+router.use(api)
 
-router.use(root);
-
-
-export default router;
+export default router
