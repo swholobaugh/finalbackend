@@ -25,5 +25,6 @@ app.use(errorHandler);
 
 app.listen(port);
 
-//strengthServices.updateStrengthData();
 journalServices.fillJournalDb();
+strengthServices.updateDailyStrengthData();
+journalServices.getPositions();

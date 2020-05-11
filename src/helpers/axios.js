@@ -7,7 +7,7 @@ const oandaInstance = axios.create({
 
 oandaInstance.defaults.headers.common['Content-Type'] = 'application/json';
 oandaInstance.defaults.headers.common['Authorization'] = `Bearer ${process.env.OANDA_API_KEY}`;
-oandaInstance.defaults.headers.common['Accept-Datetime-Format'] = 'RFC3339';
+oandaInstance.defaults.headers.common['Accept-Datetime-Format'] = 'UNIX';
 
 export default oandaInstance;
 

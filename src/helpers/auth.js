@@ -9,7 +9,7 @@ admin.initializeApp({
 
 const auth = async (req, res, next) => {
   try {
-    const idToken = req.headers.authorization?.split(' ')[1]
+    const idToken = await req.headers.authorization?.split(' ')[1]
     const decoded = idToken ? await admin.auth().verifyIdToken(idToken) : null
     if (decoded) {
       const theUser = await admin.auth().getUser(decoded.uid)

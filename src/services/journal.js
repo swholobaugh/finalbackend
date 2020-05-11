@@ -4,12 +4,12 @@ import '../helpers/db';
 import db from '../helpers/db';
 import axios from 'axios';
 import Joi from '@hapi/joi';
+import * as strengthServices from './strength'
 
 import oandaInstance from '../helpers/axios';
 
 export const checkState = async () => {
     const dbLastID = await db('journal').select('id').max('id')
-    //const journalLastID = dbLastID[0].id
     const response = await oandaInstance.get(`/v3/accounts/${process.env.OANDA_API_ACCT}/`)
     const lastID = parseInt(response.data.lastTransactionID);
     
@@ -22,14 +22,22 @@ export const checkState = async () => {
     }
 }
 
-export const getAPIdata = async () => {
-    const response = await oandaInstance.get(`/v3/accounts/${process.env.OANDA_API_ACCT}/transactions/sinceid`, {params});
+export const getPositions = async () => {
+    const response = await oandaInstance.get(`/v3/accounts/${process.env.OANDA_API_ACCT}/openPositions`)
+    var positions = [];
 
-    //const orderresponse = await oandaInstance.get(`/v3/accounts/${process.env.OANDA_API_ACCT}/orders`);
-
-    console.log(response.data.transactions);
-
-    //console.log(orderresponse.data);
+    for(var x = 0; x < response.data.positions.length; x++){
+        const pairStrength = await strengthServices.getByPairSymbol(response.data.positions[x].instrument)
+        const position = {
+            instrument: response.data.positions[x].instrument,
+            pl: response.data.positions[x].pl,
+            unrealizedpl: response.data.positions[x].unrealizedPL,
+            margin: response.data.positions[x].marginUsed,
+            strength: pairStrength.change
+        }
+        positions.push(position)
+    }
+    return positions
 }
 
 export const getLatestTransactions = async (params) => {
@@ -101,3 +109,4 @@ export const getJournalAll = async () => {
 export const getJournalById = async id => {
     const journal = await db('journal').where({ id }).first()
 }
+
